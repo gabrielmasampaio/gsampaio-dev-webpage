@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "test": "jest --watch"
+    "test": "jest --waatch a"
   },
   "dependencies": {
     "next": "15.3.1",
