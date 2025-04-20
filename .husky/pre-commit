@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Adicione esta linha para rodar o lint-staged
+PATH="$PATH:$(pwd)/node_modules/.bin"
+export PATH
+
 npx lint-staged
