@@ -1,6 +1,5 @@
-// src/components/Header.tsx
-
 import React from 'react';
+import { poppins } from '@/styles/fonts';
 
 /**
  * Props para o componente Header.
@@ -23,6 +22,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
       <div className="container mx-auto">
         <h1 className="text-2xl font-bold">{siteTitle}</h1>
       </div>
+      <p className={poppins.className}> INTER FONT </p>
     </header>
   );
 };
