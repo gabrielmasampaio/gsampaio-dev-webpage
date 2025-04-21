@@ -11,7 +11,6 @@ export default function ColorModeButton() {
   }
   const handleClick = () => {
     setMode(mode === 'light' ? 'dark' : 'light');
-    console.log(mode);
   };
   const Icon = mode === 'dark' ? DarkModeIcon : LightModeIcon;
 

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "test": "jest --waatch a"
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
