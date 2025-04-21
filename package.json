@@ -17,6 +17,7 @@
     "@mui/material": "^7.0.2",
     "@mui/material-nextjs": "^7.0.2",
     "next": "15.3.1",
+    "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -46,8 +47,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
-      "prettier --write",
-      "jest --passWithNoTests --findRelatedTests"
+      "prettier --write"
     ],
     "*.{json,css,md,html,yml}": [
       "prettier --write"

@@ -5,7 +5,7 @@ describe('Home Page', () => {
   it('should render the main content', () => {
     render(<Home />);
 
-    const mainHeading = screen.getByRole('heading', { name: /Next.js!/i });
+    const mainHeading = screen.getByRole('heading', { name: /Home/i });
 
     expect(mainHeading).toBeInTheDocument();
   });

@@ -1,11 +1,14 @@
-// jest.setup.js
-// Learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom/';
+import '@testing-library/jest-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-// global.mockUseRouter = jest.fn();
-// jest.mock('next/router', () => ({
-//   useRouter: () => ({
-//     push: global.mockUseRouter,
-//     // adicione outros métodos e propriedades do router que você usa
-//   }),
-// }));
+global.mockUseRouter = jest.fn();
+
+const LinkMock = ({ href, children }) => <a href={href}>{children}</a>;
+
+LinkMock.propTypes = {
+  href: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+jest.mock('next/link', () => LinkMock);

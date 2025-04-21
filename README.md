@@ -38,7 +38,7 @@ The directory structure reflects the Next.js App Router convention and the organ
 ├── .gitignore # Ignored files rules (will be optimized)
 ├── eslint.config.mjs # ESLint configuration (Flat Config)
 ├── jest.config.js # Jest configuration
-│ jest.setup.js # Test environment setup (React Testing Library matchers)
+├── jest.setup.js # Test environment setup (React Testing Library matchers)
 ├── package.json # Project manifest: dependencies, scripts, lint-staged config
 ├── .prettierrc.json # Prettier configuration
 ├── README.md # This file

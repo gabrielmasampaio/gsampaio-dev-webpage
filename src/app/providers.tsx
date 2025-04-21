@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { NavBar } from '@/components/Header/NavBar';
+import { NavBar } from '@/components/NavBar/NavBar';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ThemeProviderProps } from '@mui/system';
 import { ThemeProvider } from '@mui/material/styles';
