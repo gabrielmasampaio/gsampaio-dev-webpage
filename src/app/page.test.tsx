@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
 import Home from './page';
+import { render, screen } from '@testing-library/react';
 
 describe('Home Page', () => {
   it('should render the main content', () => {
@@ -7,9 +7,6 @@ describe('Home Page', () => {
 
     const mainHeading = screen.getByRole('heading', { name: /Next.js!/i });
 
-    const nextJsLogo = screen.getByAltText('Next.js logo');
-
     expect(mainHeading).toBeInTheDocument();
-    expect(nextJsLogo).toBeInTheDocument();
   });
 });

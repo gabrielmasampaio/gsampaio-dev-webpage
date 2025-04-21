@@ -1,11 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { ThemeProvider } from '@mui/system';
-import theme from '@/styles/theme';
-import { poppins } from '@/styles/fonts';
 import React from 'react';
-import { Header } from '@/components/Header';
+import { Providers } from '@/app/providers';
+import { poppins } from '@/styles/fonts';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,11 +21,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={poppins.className}>
-      <Header />
       <body>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
-        </AppRouterCacheProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
