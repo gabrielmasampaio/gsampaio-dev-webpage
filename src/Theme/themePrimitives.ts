@@ -77,6 +77,27 @@ const colorSchemes = {
   },
 };
 
+const components = {
+  MuiSvgIcon: {
+    styleOverrides: {
+      root: {
+        '.MuiButton-root || ': {
+          marginLeft: '0.125rem',
+          marginBottom: '1rem',
+          fontSize: '0.75rem',
+        },
+      },
+    },
+  },
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        textTransform: 'none',
+      },
+    },
+  },
+};
+
 export {
   rawColors,
   elevation,
@@ -85,4 +106,5 @@ export {
   shadows,
   shape,
   colorSchemes,
+  components,
 };

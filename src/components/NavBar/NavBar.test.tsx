@@ -1,11 +1,23 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { NavBar } from './NavBar';
 import '@testing-library/jest-dom';
 import * as mui from '@mui/material';
 import theme from '@/styles/theme';
 import { ThemeProvider } from '@mui/material/styles';
 
+jest.mock('@/components/MobileNavLinks/MobileNavLinks', () => ({
+  MobileNavLinks: (props) => (
+    <div data-testid="mobile-nav-links">{props.open ? 'open' : 'closed'}</div>
+  ),
+}));
+jest.mock('../DesktopNavLinks/DesktopNavLinks', () => ({
+  __esModule: true,
+  default: () => <div data-testid="desktop-nav-links" />,
+}));
+
+// mock useMediaQuery
 jest.mock('@mui/material', () => {
   const actual = jest.requireActual('@mui/material');
   return { ...actual, useMediaQuery: jest.fn() };
@@ -16,117 +28,58 @@ describe('NavBar – Mobile layout', () => {
   beforeAll(() => mediaMock.mockReturnValue(false));
   beforeEach(() => jest.clearAllMocks());
 
-  it('shows logo and menu button', async () => {
+  it('renders logo, menu button, and MobileNavLinks (closed)', async () => {
     render(
       <ThemeProvider theme={theme}>
         <NavBar />
       </ThemeProvider>,
     );
+
+    // logo
     expect(screen.getByText('GS')).toBeInTheDocument();
-    expect(await screen.findByLabelText(/open menu/i)).toBeInTheDocument();
+
+    // menu button
+    const btn = await screen.findByLabelText(/open menu/i);
+    expect(btn).toBeInTheDocument();
+
+    // MobileNavLinks rendered in closed state
+    expect(screen.getByTestId('mobile-nav-links')).toHaveTextContent('closed');
   });
 
-  it('switches to desktop when screen size changes', async () => {
-    mediaMock.mockReturnValue(false);
-    const { rerender } = render(
+  it('toggles MobileNavLinks open/closed on menu button click', async () => {
+    const user = userEvent.setup();
+    render(
       <ThemeProvider theme={theme}>
         <NavBar />
       </ThemeProvider>,
     );
-    expect(screen.queryByLabelText(/open menu/i)).toBeInTheDocument();
 
-    mediaMock.mockReturnValue(true);
-    rerender(
-      <ThemeProvider theme={theme}>
-        <NavBar />
-      </ThemeProvider>,
-    );
-    await waitFor(() =>
-      expect(screen.queryByLabelText(/open menu/i)).toBeNull(),
-    );
+    const btn = await screen.findByLabelText(/open menu/i);
+    expect(screen.getByTestId('mobile-nav-links')).toHaveTextContent('closed');
+
+    await user.click(btn);
+    expect(screen.getByTestId('mobile-nav-links')).toHaveTextContent('open');
   });
 });
 
-describe('NavBar – Desktop', () => {
-  beforeAll(() => {
-    mediaMock.mockReturnValue(true); // force desktop layout
-  });
+describe('NavBar – Desktop layout', () => {
+  beforeAll(() => mediaMock.mockReturnValue(true));
+  beforeEach(() => jest.clearAllMocks());
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('displays the GS logo on large screens', () => {
+  it('renders logo and DesktopNavLinks, hides mobile menu button', async () => {
     render(
       <ThemeProvider theme={theme}>
         <NavBar />
       </ThemeProvider>,
     );
+
+    // wait for any loading to finish
+    await waitFor(() =>
+      expect(screen.queryByRole('progressbar')).not.toBeInTheDocument(),
+    );
+
     expect(screen.getByText('GS')).toBeInTheDocument();
-  });
-
-  it('renders navigation links after loading', async () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <NavBar />
-      </ThemeProvider>,
-    );
-
-    // wait for the loading spinner to disappear
-    await waitFor(() =>
-      expect(screen.queryByRole('progressbar')).not.toBeInTheDocument(),
-    );
-
-    ['Resume', 'Projects', 'Now', 'About', 'Contact'].forEach((label) => {
-      const navLink = screen.getByRole('link', {
-        name: new RegExp(label, 'i'),
-      });
-      expect(navLink).toBeInTheDocument();
-    });
-  });
-
-  it('renders links with correct hrefs', async () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <NavBar />
-      </ThemeProvider>,
-    );
-
-    await waitFor(() =>
-      expect(screen.queryByRole('progressbar')).not.toBeInTheDocument(),
-    );
-
-    const mapping = {
-      Resume: '/resume',
-      Projects: '/projects',
-      Now: '/now',
-      About: '/about',
-      Contact: '/contact',
-    } as const;
-
-    for (const [label, href] of Object.entries(mapping)) {
-      const link = screen.getByRole('link', { name: new RegExp(label, 'i') });
-      expect(link).toHaveAttribute('href', href);
-    }
-  });
-
-  it('does not render the mobile menu button on large screens', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <NavBar />
-      </ThemeProvider>,
-    );
+    expect(screen.getByTestId('desktop-nav-links')).toBeInTheDocument();
     expect(screen.queryByLabelText(/open menu/i)).toBeNull();
-  });
-});
-
-describe('NavBar – Common Behavior', () => {
-  it('never leaves a lingering loading spinner', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <NavBar />
-      </ThemeProvider>,
-    );
-    expect(screen.queryByRole('progressbar')).toBeNull();
   });
 });

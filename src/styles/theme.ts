@@ -1,13 +1,18 @@
 import { createTheme } from '@mui/material/styles';
-import { colorSchemes } from '@/Theme/themePrimitives';
+import { colorSchemes, components, typography } from '@/Theme/themePrimitives';
 
 const theme = createTheme({
   colorSchemes: {
     ...colorSchemes,
   },
   cssVariables: {
-    colorSchemeSelector: 'class',
-    cssVarPrefix: '',
+    colorSchemeSelector: '[data-theme]',
+  },
+  components: {
+    ...components,
+  },
+  typography: {
+    ...typography,
   },
 });
 

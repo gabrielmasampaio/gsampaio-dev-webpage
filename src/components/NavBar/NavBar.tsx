@@ -4,7 +4,6 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import {
   AppBar,
-  Button,
   IconButton,
   LinearProgress,
   Toolbar,
@@ -14,7 +13,9 @@ import {
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
-import { AppMenu } from '../AppMenu/AppMenu'; // Import the AppMenu component
+import { MobileNavLinks } from '@/components/MobileNavLinks/MobileNavLinks';
+import { navigationRoutes } from '@/lib/navigationRoutes';
+import DesktopNavLinks from '../DesktopNavLinks/DesktopNavLinks';
 
 /**
  * Navigation Bar Component.
@@ -47,30 +48,14 @@ export const NavBar = () => {
           <Toolbar>
             <div style={{ flexGrow: 1 }}>
               <Link href={'/'}>
-                <Typography variant="button" component="div" type={'button'}>
+                <Typography variant="button" component="div">
                   GS
                 </Typography>
               </Link>
             </div>
 
             {isLargeScreen ? (
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Link href={'/resume'}>
-                  <Button color="inherit">Resume</Button>
-                </Link>
-                <Link href={'/projects'}>
-                  <Button color="inherit"> Projects </Button>
-                </Link>
-                <Link href={'/now'}>
-                  <Button color="inherit"> Now </Button>
-                </Link>
-                <Link href={'/about'}>
-                  <Button color="inherit"> About </Button>
-                </Link>
-                <Link href={'/contact'}>
-                  <Button color="inherit"> Contact </Button>
-                </Link>
-              </div>
+              <DesktopNavLinks routes={navigationRoutes} />
             ) : (
               <>
                 <IconButton
@@ -82,10 +67,11 @@ export const NavBar = () => {
                 >
                   <MenuIcon />
                 </IconButton>
-                <AppMenu
+                <MobileNavLinks
                   open={open}
                   handleClose={handleClose}
                   anchorEl={anchorEl}
+                  routes={navigationRoutes}
                 />
               </>
             )}
