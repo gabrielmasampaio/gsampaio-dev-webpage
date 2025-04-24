@@ -2,12 +2,12 @@
 
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import {
   AppBar,
   IconButton,
   LinearProgress,
   Toolbar,
-  Typography,
   useMediaQuery,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -39,45 +39,44 @@ export const NavBar = () => {
     setAnchorEl(null);
   };
 
-  return (
-    <>
-      {loading ? (
-        <LinearProgress />
-      ) : (
-        <AppBar position="static" color="paper">
-          <Toolbar>
-            <div style={{ flexGrow: 1 }}>
-              <Link href={'/'}>
-                <Typography variant="button" component="div">
-                  GS
-                </Typography>
-              </Link>
-            </div>
+  if (loading) return <LinearProgress />;
 
-            {isLargeScreen ? (
-              <DesktopNavLinks routes={navigationRoutes} />
-            ) : (
-              <>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  color="inherit"
-                  aria-label="open menu"
-                  onClick={handleMenuClick}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <MobileNavLinks
-                  open={open}
-                  handleClose={handleClose}
-                  anchorEl={anchorEl}
-                  routes={navigationRoutes}
-                />
-              </>
-            )}
-          </Toolbar>
-        </AppBar>
-      )}
-    </>
+  return (
+    <AppBar position="static" color="paper">
+      <Toolbar>
+        <div style={{ flexGrow: 1 }}>
+          <Link href={'/'}>
+            <Image
+              src="/gsampaio-logo-white.svg"
+              alt="GS Logo"
+              width={65}
+              height={50}
+            />
+          </Link>
+        </div>
+
+        {isLargeScreen ? (
+          <DesktopNavLinks routes={navigationRoutes} />
+        ) : (
+          <>
+            <IconButton
+              size="large"
+              edge="end"
+              color="inherit"
+              aria-label="open menu"
+              onClick={handleMenuClick}
+            >
+              <MenuIcon />
+            </IconButton>
+            <MobileNavLinks
+              open={open}
+              handleClose={handleClose}
+              anchorEl={anchorEl}
+              routes={navigationRoutes}
+            />
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };

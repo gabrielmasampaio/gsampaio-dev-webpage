@@ -28,21 +28,23 @@ describe('NavBar – Mobile layout', () => {
   beforeAll(() => mediaMock.mockReturnValue(false));
   beforeEach(() => jest.clearAllMocks());
 
-  it('renders logo, menu button, and MobileNavLinks (closed)', async () => {
+  it('renders logo image, menu button, and MobileNavLinks (closed)', async () => {
     render(
       <ThemeProvider theme={theme}>
         <NavBar />
       </ThemeProvider>,
     );
 
-    // logo
-    expect(screen.getByText('GS')).toBeInTheDocument();
+    const logo = screen.getByAltText('GS Logo');
+    expect(logo).toBeInTheDocument();
+    expect(logo).toHaveAttribute(
+      'src',
+      expect.stringContaining('gsampaio-logo-white.svg'),
+    );
 
-    // menu button
     const btn = await screen.findByLabelText(/open menu/i);
     expect(btn).toBeInTheDocument();
 
-    // MobileNavLinks rendered in closed state
     expect(screen.getByTestId('mobile-nav-links')).toHaveTextContent('closed');
   });
 
@@ -66,20 +68,22 @@ describe('NavBar – Desktop layout', () => {
   beforeAll(() => mediaMock.mockReturnValue(true));
   beforeEach(() => jest.clearAllMocks());
 
-  it('renders logo and DesktopNavLinks, hides mobile menu button', async () => {
+  it('renders logo image and DesktopNavLinks, hides mobile menu button', async () => {
     render(
       <ThemeProvider theme={theme}>
         <NavBar />
       </ThemeProvider>,
     );
 
-    // wait for any loading to finish
     await waitFor(() =>
       expect(screen.queryByRole('progressbar')).not.toBeInTheDocument(),
     );
 
-    expect(screen.getByText('GS')).toBeInTheDocument();
+    const logo = screen.getByAltText('GS Logo');
+    expect(logo).toBeInTheDocument();
+
     expect(screen.getByTestId('desktop-nav-links')).toBeInTheDocument();
+
     expect(screen.queryByLabelText(/open menu/i)).toBeNull();
   });
 });
