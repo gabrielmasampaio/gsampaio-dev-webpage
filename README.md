@@ -1,4 +1,4 @@
-# GSampaiodev WEbpage
+# GSampaiodev Webpage
 
 A personal portfolio website under development, built with a modern stack, focused on performance, developer experience,
 and applying best practices.
