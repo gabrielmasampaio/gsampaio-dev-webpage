@@ -34,6 +34,8 @@ export const NavBar = () => {
 
   if (loading) return <LinearProgress />;
 
+  const logoSize = isDesktop ? 100 : 75;
+
   return (
     <AppBar
       className="lg:px-25"
@@ -61,12 +63,14 @@ export const NavBar = () => {
               <source
                 srcSet="/gsampaio-logo-white.svg"
                 media="(prefers-color-scheme: dark)"
+                className="hover:opacity-70 transition-opacity active:scale-115"
               />
               <Image
+                className="hover:opacity-70 transition-opacity active:scale-115"
                 src="/gsampaio-logo-black.svg"
                 alt="GS Logo"
-                width={65}
-                height={50}
+                width={logoSize}
+                height={logoSize}
                 priority
               />
             </picture>

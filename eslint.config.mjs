@@ -22,6 +22,17 @@ const eslintConfig = [
       '@typescript-eslint/no-require-imports': 'off',
     },
   },
+  {
+    files: ['**/*.test.{js,jsx,ts,tsx}'],
+    rules: {
+      'react/display-name': 'off',
+
+      '@typescript-eslint/no-explicit-any': 'off',
+
+      '@next/next/no-img-element': 'off',
+      'jsx-a11y/alt-text': 'off',
+    },
+  },
 ];
 
 export default eslintConfig;

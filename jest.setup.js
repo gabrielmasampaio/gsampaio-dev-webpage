@@ -18,5 +18,9 @@ LinkMock.propTypes = {
 
 jest.mock('next/link', () => LinkMock);
 
+jest.mock('@/components/FontAwesomeSvgIcon/FontAwesomeSvgIcon', () => ({
+  FontAwesomeSvgIcon: () => <span data-testid="fa-icon" />,
+}));
+
 // Example usage of logging the testing playground URL in the console:
 // screen.logTestingPlaygroundURL();

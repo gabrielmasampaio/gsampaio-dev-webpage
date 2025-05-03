@@ -29,9 +29,13 @@ export const MobileNavLinks: React.FC<MobileNavLinksProps> = ({
   };
 
   return (
-    <Menu open={open} anchorEl={anchorEl} onClose={handleClose}>
+    <Menu open={open} anchorEl={anchorEl} onClose={handleClose} elevation={1}>
       {routes.map((route) => (
-        <MenuItem key={route.href} onClick={handleItemClick}>
+        <MenuItem
+          key={route.href}
+          onClick={handleItemClick}
+          sx={route.primary && { color: 'text.brand' }}
+        >
           <Link
             href={route.href}
             target={route.openInNewTab ? '_blank' : undefined}

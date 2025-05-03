@@ -13,6 +13,7 @@ const rawColors = {
     primary: {
       500: '#00d8fd',
       600: '#007a89',
+      700: '#00455a',
     },
   },
   orangeWheel: '#f7811a',
@@ -47,12 +48,13 @@ const colorSchemes = {
   light: {
     palette: {
       primary: {
-        main: rawColors.brand.primary[500],
+        main: rawColors.brand.primary[600],
         contrastText: rawColors.white,
       },
       text: {
         primary: '#00060e',
         secondary: rawColors.grey[700],
+        brand: rawColors.brand.primary[600],
         disabled: rawColors.grey[200],
       },
       background: {
@@ -65,12 +67,13 @@ const colorSchemes = {
   dark: {
     palette: {
       primary: {
-        main: rawColors.brand.primary[600],
+        main: rawColors.brand.primary[500],
         contrastText: rawColors.black,
       },
       text: {
         primary: rawColors.white,
         secondary: rawColors.grey[200],
+        brand: rawColors.brand.primary[500],
         disabled: rawColors.grey[700],
       },
       background: {

@@ -25,7 +25,7 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ routes }) => {
           target={route.openInNewTab ? '_blank' : undefined}
         >
           <Button
-            color={route.primary ? 'info' : 'inherit'}
+            color={route.primary ? 'primary' : 'inherit'}
             variant={route.primary ? 'contained' : 'text'}
             component="span"
             sx={{ ml: 1, fontSize: '1rem' }}
