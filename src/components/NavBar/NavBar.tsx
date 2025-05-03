@@ -3,8 +3,10 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   AppBar,
+  Box,
   IconButton,
   LinearProgress,
   Toolbar,
@@ -12,70 +14,91 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import Link from 'next/link';
 import { MobileNavLinks } from '@/components/MobileNavLinks/MobileNavLinks';
 import { navigationRoutes } from '@/lib/navigationRoutes';
 import DesktopNavLinks from '../DesktopNavLinks/DesktopNavLinks';
 
-/**
- * Navigation Bar Component.
- * @returns {JSX.Element} navbar element.
- */
 export const NavBar = () => {
   const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up('sm'));
-
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const [loading, setLoading] = useState(true);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   useEffect(() => {
     setLoading(false);
-  }, [isLargeScreen]);
+  }, [isDesktop]);
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleMenuOpen = (e: React.MouseEvent<HTMLElement>) =>
+    setAnchorEl(e.currentTarget);
+  const handleMenuClose = () => setAnchorEl(null);
 
   if (loading) return <LinearProgress />;
 
   return (
-    <AppBar position="static" color="paper">
+    <AppBar
+      className="lg:px-25"
+      position="relative"
+      elevation={0}
+      color="paper"
+    >
       <Toolbar>
-        <div style={{ flexGrow: 1 }}>
-          <Link href={'/'}>
-            <Image
-              src="/gsampaio-logo-white.svg"
-              alt="GS Logo"
-              width={65}
-              height={50}
-            />
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Link
+            href="/"
+            style={{
+              display: 'inline-flex',
+              flexShrink: 0,
+              alignItems: 'center',
+            }}
+          >
+            <picture>
+              <source
+                srcSet="/gsampaio-logo-white.svg"
+                media="(prefers-color-scheme: dark)"
+              />
+              <Image
+                src="/gsampaio-logo-black.svg"
+                alt="GS Logo"
+                width={65}
+                height={50}
+                priority
+              />
+            </picture>
           </Link>
-        </div>
+        </Box>
 
-        {isLargeScreen ? (
-          <DesktopNavLinks routes={navigationRoutes} />
-        ) : (
-          <>
-            <IconButton
-              size="large"
-              edge="end"
-              color="inherit"
-              aria-label="open menu"
-              onClick={handleMenuClick}
-            >
-              <MenuIcon />
-            </IconButton>
-            <MobileNavLinks
-              open={open}
-              handleClose={handleClose}
-              anchorEl={anchorEl}
-              routes={navigationRoutes}
-            />
-          </>
+        {isDesktop && (
+          <Box sx={{ flexGrow: 0, mx: 4 }}>
+            <DesktopNavLinks routes={navigationRoutes} />
+          </Box>
         )}
+
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {isDesktop ? null : (
+            <>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="open menu"
+                onClick={handleMenuOpen}
+              >
+                <MenuIcon />
+              </IconButton>
+              <MobileNavLinks
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                handleClose={handleMenuClose}
+                routes={navigationRoutes}
+              />
+            </>
+          )}
+        </Box>
       </Toolbar>
     </AppBar>
   );

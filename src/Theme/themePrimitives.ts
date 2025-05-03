@@ -1,5 +1,7 @@
+import { createTheme } from '@mui/material/styles';
+
 const rawColors = {
-  white: '#f5f5f7',
+  white: '#f7f7f7',
   black: '#1d1d1f',
   grey: {
     100: '#f4f4f4',
@@ -14,16 +16,19 @@ const rawColors = {
     },
   },
   orangeWheel: '#f7811a',
-  richBlack: '#020e20',
+  richBlack: '#000010',
+  mediumBlack: '#000015',
   vividSkyBlue: '#00d8fc',
   blueMunsell: '#068bab',
   oxfordBlue: '#041e41',
 };
 
+const defaultTheme = createTheme();
 const elevation = {
   level0: '0px 0px 0px 0px rgba(0,0,0,0)',
   level1:
     '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
+  ...defaultTheme.shadows.slice(2),
 };
 
 const spacing = 8;
@@ -46,7 +51,7 @@ const colorSchemes = {
         contrastText: rawColors.white,
       },
       text: {
-        primary: rawColors.black,
+        primary: '#00060e',
         secondary: rawColors.grey[700],
         disabled: rawColors.grey[200],
       },
@@ -69,8 +74,8 @@ const colorSchemes = {
         disabled: rawColors.grey[700],
       },
       background: {
-        default: rawColors.oxfordBlue,
-        paper: rawColors.richBlack,
+        default: rawColors.richBlack,
+        paper: rawColors.mediumBlack,
       },
       divider: rawColors.grey[700],
     },
@@ -78,17 +83,6 @@ const colorSchemes = {
 };
 
 const components = {
-  MuiSvgIcon: {
-    styleOverrides: {
-      root: {
-        '.MuiButton-root || ': {
-          marginLeft: '0.125rem',
-          marginBottom: '1rem',
-          fontSize: '0.75rem',
-        },
-      },
-    },
-  },
   MuiButton: {
     styleOverrides: {
       root: {

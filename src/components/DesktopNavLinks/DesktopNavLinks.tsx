@@ -24,10 +24,18 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ routes }) => {
           href={route.href}
           target={route.openInNewTab ? '_blank' : undefined}
         >
-          <Button color="inherit" component="span">
+          <Button
+            color={route.primary ? 'info' : 'inherit'}
+            variant={route.primary ? 'contained' : 'text'}
+            component="span"
+            sx={{ ml: 1, fontSize: '1rem' }}
+          >
             {route.label}
             {route.openInNewTab && route.label === 'resume' && (
-              <OpenInNewIcon sx={{ ml: 0.5, fontSize: '0.875rem' }} />
+              <OpenInNewIcon
+                className="mb-2.5"
+                sx={{ ml: 0.5, fontSize: '0.875rem' }}
+              />
             )}
           </Button>
         </Link>

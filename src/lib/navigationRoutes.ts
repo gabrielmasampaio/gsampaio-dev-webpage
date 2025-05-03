@@ -2,6 +2,7 @@ interface NavigationRoute {
   label: string;
   href: string;
   openInNewTab?: boolean;
+  primary?: boolean;
 }
 
 const navigationRoutes: NavigationRoute[] = [
@@ -9,7 +10,7 @@ const navigationRoutes: NavigationRoute[] = [
   { label: 'projects', href: '/projects' },
   { label: 'now', href: '/now' },
   { label: 'about', href: '/about' },
-  { label: 'contact', href: '/contact' },
+  { label: 'contact', href: '/contact', primary: true },
 ];
 
 export { navigationRoutes };

@@ -3,24 +3,20 @@
 import * as React from 'react';
 import { NavBar } from '@/components/NavBar/NavBar';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { ThemeProviderProps } from '@mui/system';
+import theme from '@/Theme/theme';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from '@/styles/theme';
-import InitColorSchemeScript from '@mui/system/InitColorSchemeScript';
+import { CssBaseline } from '@mui/material';
 
-export interface ProvidersProps {
-  children: React.ReactNode;
-  themeProps?: ThemeProviderProps;
-}
-
-export function Providers({ children }: Readonly<ProvidersProps>) {
+export function Providers({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ThemeProvider theme={theme} defaultMode="dark">
-      <InitColorSchemeScript attribute="class" />
-      <AppRouterCacheProvider>
+    <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
         <NavBar />
         {children}
-      </AppRouterCacheProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AppRouterCacheProvider>
   );
 }

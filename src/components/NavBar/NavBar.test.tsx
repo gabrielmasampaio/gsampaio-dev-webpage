@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { NavBar } from './NavBar';
 import '@testing-library/jest-dom';
 import * as mui from '@mui/material';
-import theme from '@/styles/theme';
+import theme from '@/Theme/theme';
 import { ThemeProvider } from '@mui/material/styles';
 
 jest.mock('@/components/MobileNavLinks/MobileNavLinks', () => ({
