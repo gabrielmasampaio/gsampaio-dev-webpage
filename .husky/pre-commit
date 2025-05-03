@@ -1,5 +1,9 @@
- echo "-- running lint-staged --"
-PATH="$PATH:$(pwd)/node_modules/.bin"
-export PATH
+# .husky/pre-commit
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "-- running lint-staged --"
+
+export PATH="$(pwd)/node_modules/.bin:$PATH"
 
 npx lint-staged
